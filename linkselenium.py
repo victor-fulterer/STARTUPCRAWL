@@ -52,6 +52,11 @@ sleep(2)
 
 
 sel = Selector(text = driver.page_source)
+ueberschriften = sel.xpath('//h4/text()').extract()[1:6]
+untere dinge = sel.xpath('//*[@class="org-people-bar-graph-element__category"]/text()').extract()[10:15]
+zahlen = sel.xpath('//*[@class="org-people-bar-graph-element__percentage-bar-info truncate full-width mt2 mb1 t-14 t-back--light t-normal"]')
+
+# nummern noch anpassen und das ganze dann 5x für jeden Datensatz
 
 #hochschule = sel.xpath('//*[@class = "org-people-bar-graph-element__percentage-bar-info truncate full-width mt2 mb1 t-14 t-black--light t-normal"]/text()').extract_first().split()
 #hochschule = ' '.join(hochschule)
