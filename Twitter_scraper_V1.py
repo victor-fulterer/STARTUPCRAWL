@@ -23,7 +23,7 @@ df["screenname"] = df["Twitter"].str.strip("https://twitter.com/")
 url_list = df["screenname"].tolist()
 usernames = [x for x in url_list if str(x) != 'nan']
 
-#Twitte Dev Keys einsetzen 
+#Twitter Dev Keys einsetzen 
 consumer_key = "xx"
 consumer_secret = "xx"
 access_token = "xx"
@@ -42,13 +42,14 @@ def get_all_tweets(screen_name):
 	alltweets = []	
 	
 	#make initial request for most recent tweets (200 is the maximum allowed count)
-	new_tweets = api.user_timeline(screen_name = screen_name, exclude_replies = True, include_retweets=False,count=200)
+	new_tweets = api.user_timeline(screen_name = screen_name, exclude_replies = True, include_retweets=False,count=50)
 	
 	#save most recent tweets
 	alltweets.extend(new_tweets)
 	
 	#save the id of the oldest tweet less one
-	oldest = alltweets[-1].id - 1
+	if alltweets:
+		oldest = alltweets[-1].id - 1
 	
 	#keep grabbing tweets until there are no tweets left to grab
 	while len(new_tweets) > 0:
@@ -64,19 +65,23 @@ def get_all_tweets(screen_name):
 		oldest = alltweets[-1].id - 1
 		
 		print ("...%s tweets downloaded so far" % (len(alltweets)))
+
 	
 	#transform the tweepy tweets into a 2D array that will populate the csv	
 	outtweets = [[screen_name, tweet.id_str, tweet.created_at, tweet.text.encode("utf-8")] for tweet in alltweets]
-	
+
 	#write the csv	
 	writer.writerows(outtweets)
 	
 	pass
 
 with open('Startup_test1tweets.csv', 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(["screen_name","id","created_at","text","favourite_count"])
-    if __name__ == '__main__':
+	writer = csv.writer(f)
+	writer.writerow(["screen_name","id","created_at","text","favourite_count"])
+	if __name__ == '__main__':
 	#pass in the username of the account you want to download
-        for screen_name in usernames:
-            get_all_tweets(screen_name)
+		for screen_name in usernames:
+			try:
+				get_all_tweets(screen_name)
+			except tweepy.TweepError:
+				print("Command on user unsuccessful, Skip")
