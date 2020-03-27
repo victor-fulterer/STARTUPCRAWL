@@ -15,10 +15,12 @@ OUTPUTS:
     none, simply save the tweet info to a spreadsheet
 """
 
-consumer_key = "yw5yuKpmUN7kYxH9EueDqBxRz"
-consumer_secret = "hFfiJZ7794zvoafRyJXriBiTmYp9JAeyejY32Awz6cqFHxVZUs"
-access_token = "1195034865558859778-Yg4gkzHmkHuRyT119ojZOzHGunSzEg"
-access_token_secret = "e7Ligq4YJTVEKqnFAbebPmW06L4syR04Jkum863bcBxt3"
+consumer_key = "xx"
+consumer_secret = "xx"
+access_token = "xx"
+access_token_secret = "xx"
+
+#Development Key einsetzen 
 
 usernames = ["FerGeneBio","bluecodepayment"]
 def get_all_tweets(screen_name):
