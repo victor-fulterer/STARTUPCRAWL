@@ -14,6 +14,15 @@ INPUTS:
 OUTPUTS:
     none, simply save the tweet info to a spreadsheet
 """
+
+excelpath = "/Users/stephanbergmann/Documents/GitHub/classData2Dollar/crunchbasescraper/crunchbasescraper/Scraper_190317/Data/"
+#Der Dateipfad hinter dem das Excel liegt 
+df = pd.read_excel(excelpath + "crunchbase.xlsx")
+
+df["screenname"] = df["Twitter"].str.strip("https://twitter.com/")
+url_list = df["screenname"].tolist()
+usernames = [x for x in url_list if str(x) != 'nan']
+
 #Twitte Dev Keys einsetzen 
 consumer_key = "xx"
 consumer_secret = "xx"
@@ -21,7 +30,6 @@ access_token = "xx"
 access_token_secret = "xx"
 
 
-usernames = ["FerGeneBio","bluecodepayment"]
 def get_all_tweets(screen_name):
 	#Twitter only allows access to a users most recent 3240 tweets with this method
 	
