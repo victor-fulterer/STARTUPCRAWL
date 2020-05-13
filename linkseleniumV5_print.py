@@ -49,7 +49,7 @@ for i in df['LinkedIn']:
 #Eliminieren der ursprünglich leeren Zellwerte im Excel in der generierten Liste
 cleanlste = [x for x in lste if str(x) != 'nan']
 
-# Crawl Prozess für Hevletia als Beispielunternehmen
+# Crawl Prozess für Unternehmen aus Liste der Crunchbase Daten
 
 for url in cleanlste:
     driver.get(url)
