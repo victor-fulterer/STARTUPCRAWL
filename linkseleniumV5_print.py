@@ -7,6 +7,7 @@ class LinkseleniumSpider(scrapy.Spider):
     allowed_domains = ['www.linkedin.ch']
     start_urls = ['http://www.linkedin.ch/']
 
+# Import verschiedener Programme, die benötigt werden    
 import csv
 from parsel import Selector
 from time import sleep
@@ -15,19 +16,21 @@ from pandas.io.json import json_normalize
 import pandas as pd
 from selenium.common.exceptions import NoSuchElementException
 
-writer = csv.writer(open('linkedin_fehler.csv', 'w+', encoding='utf-8-sig', newline=''))
+# Öffnen der CSV Datei, der gecrawlten Crunchbase Dateien
+writer = csv.writer(open('cb_bereinigt.csv', 'w+', encoding='utf-8-sig', newline=''))
 writer.writerow(['Anzahl', 'Typ', 'Art der Daten', 'URL'])
 
 # Login-Prozess auf LinkedIn Startseite mit erstelltem Account.
-
 driver = webdriver.Chrome('C:\webdrivers\chromedriver.exe')
 driver.get('https://ch.linkedin.com/')
 sleep(3)
 
+# Übergabe Login
 username = driver.find_element_by_name("session_key")
 username.send_keys('ostmau@hotmail.com')
 sleep(1)
 
+# Übergabe Passwort
 password = driver.find_element_by_name("session_password")
 password.send_keys('data2dollar')
 sleep(1)
